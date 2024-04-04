@@ -1,9 +1,9 @@
 package entities
 
 import errors.*
-import java.util.Date
+import java.time.LocalDateTime
 
-class Transfer(val type: String, val value: Int, val description: String, val createdAt: Date, val userId: Int) {
+class Transfer(val type: String, val value: Int, val description: String, val createdAt: LocalDateTime, val userId: Int) {
 
     init {
        validate()
