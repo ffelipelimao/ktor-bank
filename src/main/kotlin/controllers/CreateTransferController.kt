@@ -6,16 +6,26 @@ import io.ktor.server.routing.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.http.*
+import errors.InvalidUserIdException
+import repository.queries.TransferRepository
 import usecases.CreateTransferUseCase
 
-val createTransferUseCase = CreateTransferUseCase()
+fun Route.createTransferController(transferRepository: TransferRepository) {
+    val createTransferUseCase = CreateTransferUseCase(transferRepository)
 
-fun Route.createTransferController() {
     route("clientes/{id}/transacoes") {
         post {
             val input = call.receive<CreateTransferRequestDTO>()
-            val output = createTransferUseCase.handle(input)
-            call.respond(HttpStatusCode.OK, output)
+            val userId = call.parameters["id"]
+
+            try {
+                val output = createTransferUseCase.handle(input, userId)
+                call.respond(HttpStatusCode.OK, output)
+            }catch (e: InvalidUserIdException){
+                call.respond(HttpStatusCode.BadRequest, e)
+            }catch (e: Exception){
+                call.respond(HttpStatusCode.InternalServerError, e)
+            }
         }
     }
 }

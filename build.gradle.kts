@@ -32,6 +32,11 @@ dependencies {
     implementation("io.ktor:ktor-server-double-receive:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("org.jetbrains.exposed:exposed-core:0.35.1")
+    implementation("org.jetbrains.exposed:exposed-dao:0.35.1")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.35.1")
+    implementation("org.postgresql:postgresql:42.3.8")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.35.1")
 
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
